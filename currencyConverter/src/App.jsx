@@ -22,6 +22,10 @@ function App() {
     const convert = function() {
         setConvertedAmount(amount * currencyInfo[to])
     }
+
+    // const resetTo = fucntion() {
+    //     setTo(0);
+    // }
     
 
     const BackgroundImage = 'https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg';
@@ -49,7 +53,10 @@ function App() {
                                 amount={amount}
                                 onAmountChange={(amount) => setAmount(amount)}
                                 currencyOptions={currencyOptions}
-                                onCurrencyChange={(currency) => setFrom(currency)}
+                                onCurrencyChange={(currency) => {
+                                    setFrom(currency);
+                                    // setTo(0)
+                                }}
                                 selectCurrency={from}
                                 
                                 
