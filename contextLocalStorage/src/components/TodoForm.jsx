@@ -5,6 +5,7 @@ function TodoForm() {
     const [todo, setTodo] = useState('');
 
     // state for enabling the Add Url button, this should be handled in a better way
+    // may be a toggle button/switch can be added
     const [enableUrlAdd, setEnableUrlAdd] = useState(false);
 
     const {addTodo} = useTodo()
@@ -37,9 +38,9 @@ function TodoForm() {
             
             <button type="button" 
                 onClick={captureUrl}
-                className="rounded-lg px-3 py-1 bg-green-600 text-white shrink-0">
+                className={`rounded-lg px-3 py-1 bg-green-600 text-white shrink-0 ${enableUrlAdd ? '' : 'hidden'}`}>
                 Url
-                    
+                
             </button>
         </form>
     );
