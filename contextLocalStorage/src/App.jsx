@@ -32,7 +32,7 @@ function App() {
   // use localstorage to store the data
   useEffect(() => {
     const todos =  JSON.parse(localStorage.getItem("todos"))
-    console.log('get local storage', todos);
+    // console.log('get local storage', todos);
     if(todos && todos.length > 0) {
       setTodos(todos);
     }
@@ -62,7 +62,7 @@ function App() {
                     ))}
                 </div>
             </div>
-        </div>
+        </div>  
       </TodoProvider>
     </>
   )

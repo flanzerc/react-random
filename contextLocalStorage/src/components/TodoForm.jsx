@@ -4,6 +4,9 @@ import { useTodo } from "../contexts/ToDoContext";
 function TodoForm() {
     const [todo, setTodo] = useState('');
 
+    // state for enabling the Add Url button, this should be handled in a better way
+    const [enableUrlAdd, setEnableUrlAdd] = useState(false);
+
     const {addTodo} = useTodo()
     
     const submitTodo = (e) => {
@@ -11,6 +14,10 @@ function TodoForm() {
         if(!todo) return
         addTodo({todo: todo, completed: false})
         setTodo('')
+    }
+
+    const captureUrl = () => {
+        addTodo({todo: window.location.href, completed: false})
     }
 
     return (
@@ -26,6 +33,13 @@ function TodoForm() {
                 onClick={submitTodo}
                 className="rounded-r-lg px-3 py-1 bg-green-600 text-white shrink-0">
                 Add
+            </button>
+            
+            <button type="button" 
+                onClick={captureUrl}
+                className="rounded-lg px-3 py-1 bg-green-600 text-white shrink-0">
+                Url
+                    
             </button>
         </form>
     );
