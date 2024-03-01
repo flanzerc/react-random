@@ -1,14 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import config from './config/config'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // const conf = config
+
+  // console.log(conf.appwriteProjectId)
+  console.log(config.appwriteCollectionId)
 
   return (
     <>
-        <h1>Blog With AppWrite</h1>        
+        <h1 style={{color: "white"}}>Blog With AppWrite</h1>        
     </>
   )
 }
