@@ -2,7 +2,7 @@ import config from "../config/config";
 import { Client, ID, Databases, Storage, Query } from "appwrite";
 
 
-export class AppwriteConfigService{
+export class AppwritePostService{
     client = new Client();
     databases;
     storage;
@@ -37,6 +37,7 @@ export class AppwriteConfigService{
         }
     }
 
+    // slug is being used as unique-key
     async updatePost (slug, {title, content, featuredImage, status}) {
         try {
             return await this.databases.updateDocument(
@@ -143,6 +144,6 @@ export class AppwriteConfigService{
 
 // lets create an object and import it. So that user can directly access all the 
 // properties and methods
-const appwriteConfService = new AppwriteConfigService()
+const appwriteConfService = new AppwritePostService()
 export default appwriteConfService
 
