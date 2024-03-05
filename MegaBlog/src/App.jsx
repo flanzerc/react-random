@@ -4,7 +4,7 @@ import config from './config/config'
 import {useDispatch} from 'react-redux'
 import authService from './appwrite/authService'
 import {login, logout} from './store/authSlice'
-import { Header } from './components'
+import { Header, Footer } from './components'
 import { Outlet } from 'react-router-dom'
 
 
