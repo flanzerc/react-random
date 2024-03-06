@@ -42,7 +42,10 @@ export class AuthService{
 
     async getCurrentUser() {
         try {
-            return await this.account.get();
+            console.log('getcurrentuser', config.appwriteUrl)
+            return await this.account
+                .get()
+                .catch((e) => console.log('invalid url', e));
         } catch (error) {
             console.log('Appwrite error:: getCurrentUser: ', error);
         }
