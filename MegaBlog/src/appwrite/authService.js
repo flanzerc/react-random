@@ -10,10 +10,11 @@ export class AuthService{
 
     constructor() {
         this.client
-            .setEndpoint(config.appwriteUrl)
-            .setEndpoint(config.appwriteProjectId);
-
+        .setEndpoint(String(config.appwriteUrl))
+        .setEndpoint(String(config.appwriteProjectId));
+        
         this.account = new Account(this.client);       
+        console.log('constructor::Client', this.client);
         
     }
 
