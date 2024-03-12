@@ -3,7 +3,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import {login as storeLogin} from '../store/authSlice'
 import {Button, Input, Logo} from '../components/index'
 import { useDispatch } from 'react-redux'
-import authService from '../appwrite/AuthService'
+import authService from '../appwrite/authService'
 import {useForm} from 'react-hook-form'
 
 
@@ -81,6 +81,8 @@ export default function Login() {
 
                             <Button 
                                 children='Sign in'
+                                type='submit'
+                                className='w-full'
                             />
 
                     </div>
