@@ -17,6 +17,7 @@ export default function Signup() {
         try {
             const userData = await authService.createAccount(data)
             if(userData) {
+                console.log('user data after register', userData);
                 const currentUser = await authService.getCurrentUser();
                 if(currentUser) {
                     dispatch(login(userData))
@@ -52,7 +53,7 @@ export default function Signup() {
                 <div className='space-y-5'>
                     <Input 
                         label='Name'
-                        placeHolder='Enter your name'
+                        placeholder='Enter your name'
                         {...register('name', {
                             required:true,
 
@@ -60,7 +61,7 @@ export default function Signup() {
                         />
                     <Input
                         label='Email'
-                        placeHolder='Enter your email'
+                        placeholder='Enter your email'
                         type='email'
                         {...register('email', {
                             required:true,
@@ -72,10 +73,10 @@ export default function Signup() {
 
                     <Input 
                         label='Password'
-                        placeHolder='Enter password'
+                        placeholder='Enter password'
                         type='Password'
                         {...register('password', {
-                            required:true,
+                            required:false,
                         })}
                         />
                     <Button

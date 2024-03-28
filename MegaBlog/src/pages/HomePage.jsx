@@ -1,16 +1,26 @@
 import React, {useEffect, useState} from 'react'
 import appwriteConfService from '../appwrite/appwritePostService'
 import { Container, PostCard } from '../components'
+import { json } from 'react-router-dom'
 
 
 export default function HomePage() {
 
     const [posts, setPosts] = useState([])
+    // console.log('HomePage')
 
     useEffect(() => {
         appwriteConfService.getPosts()
-        .then((posts) => (setPosts(posts)))
-    }, [posts])
+        .then((posts) => {
+
+                if(posts) {
+                    setPosts(posts.documents)
+                }   
+                
+
+            }
+        )
+    }, [])
 
     if(posts.length === 0) {
         return (
@@ -37,7 +47,7 @@ export default function HomePage() {
                     {posts.map((post) => (
                         <div key={post.$id} 
                             className='p-2 w-1/4'>
-                                <PostCard post={post} />
+                                <PostCard {...post} />
                             </div>
                     ))}
                 </div>

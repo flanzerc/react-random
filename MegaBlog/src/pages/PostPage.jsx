@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import appwriteConfService from '../appwrite/appwritePostService'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Container, PostCard } from '../components'
-import { UseSelector, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import parse from "html-react-parser"
 
 

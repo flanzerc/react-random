@@ -1,11 +1,12 @@
 import React, {useCallback} from "react";
 import { set, useForm } from "react-hook-form";
 import {Button, Input, Select, RTE} from "../index"
-import { appwriteConfService } from "../../appwrite/appwritePostService";
+import appwritePostService  from "../../appwrite/appwritePostService";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function PostForm({ post }) {
+
     const {register, handleSubmit, watch, 
       setValue, control, getValues} = useForm({
         defaultValues: {
@@ -17,15 +18,17 @@ export default function PostForm({ post }) {
       })
 
     const navigate = useNavigate()
-    const userData = useSelector(state => state.user.userData)
+    // console.log('postForm:state', state);
+    const userData = useSelector((state) => state.auth.userData)
     const submit = async (data) => {
       if(post) {
-        const imageFile = data.image[0] ? appwriteConfService.uploadImage(data.image[0]) : null;        
+        console.log('slug', slug);
+        // const imageFile = data.image[0] ? appwriteConfService.uploadImage(data.image[0]) : null;        
         if(imageFile) {
-          appwriteConfService.deleteFile(post.featuredImage)
+          appwritePostService.deleteFile(post.featuredImage)
         }
 
-        const dbpost = await appwriteConfService.updatePost(post.$id, {
+        const dbpost = await appwritePostService.updatePost(post.$id, {
           ...data,
           featuredImage: imageFile ? imageFile.$id : undefined
         })
@@ -35,12 +38,15 @@ export default function PostForm({ post }) {
         }
 
       } else {
-        const imageFile = await appwriteConfService.uploadImage(data.image[0])
+        const imageFile = await appwritePostService.uploadImage(data.image[0])
+        console.log('postForm:after img upload', imageFile)
+        console.log('postForm:userData', userData)
+        console.log('postForm:data', data)
 
         if(imageFile) {
           const fileId = imageFile.$id;
           data.featuredImage = fileId;
-          const newdbpost = await appwriteConfService.createPost({
+          const newdbpost = await appwritePostService.createPost({
             ...data,
             userId: userData.$id,
           })
@@ -57,10 +63,14 @@ export default function PostForm({ post }) {
     
     const slugTransform = useCallback((value) => {
       if(value && typeof value === 'string') {
-        return value.trim()
+        const generatedSlug = value.trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, '-')
-        .replace(/\s/g, '-')
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
+        .replace(/\s/g, "-");
+        
+        // console.log('slugTrns:aftertransform value' ,  generatedSlug)
+
+        return generatedSlug;
       }
 
       return '';
@@ -113,7 +123,7 @@ export default function PostForm({ post }) {
                 {post && (
                     <div className="w-full mb-4">
                         <img
-                            src={appwriteConfService.getFilePreview(post.featuredImage)}
+                            src={appwritePostService.getFilePreview(post.featuredImage)}
                             alt={post.title}
                             className="rounded-lg"
                         />

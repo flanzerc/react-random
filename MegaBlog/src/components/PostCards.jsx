@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Children } from 'react'
 import appwritePostService from "../appwrite/appwritePostService"
 import {Link} from 'react-router-dom'
 
 export default function PostCards({$id, title, featuredImage}) {
+    // console.log('featuredImage', appwritePostService.getImagePreview(featuredImage));
   return (
     <Link to={"/post/${$id}"}>
         <div className='w-full bg-gray-200 rounded-xl p-4'>

@@ -2,29 +2,32 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import config from './config/config'
 import {useDispatch} from 'react-redux'
-import authService from './appwrite/AuthService'
+
 import {login, logout} from './store/authSlice'
 import { Header, Footer } from './components'
 import { Outlet } from 'react-router-dom'
+// import authService from './appwrite/authService.js'
+import appwriteAuthService from './appwrite/appwriteAuthService'
 
 
 function App() {
-
+  
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
-
+  
   useEffect(() => {
-    authService.getCurrentUser()
-    .then((userData) => {
-      if (userData) {
-        // test by changing the userData variable here and in the slice page
-        dispatch(() => login({userData}))
+    
+    appwriteAuthService.getCurrentUser()
+      .then((userData) => {
         
-      } else {
-        dispatch(() => logout())
-      }
-    })
-    .finally(() => setLoading(false))
+        if (userData) {
+          dispatch(login({userData}))
+          
+        } else {          
+          dispatch(logout())
+        }
+      })
+      .finally(() => setLoading(false))
 
   }, [])
 
@@ -36,7 +39,7 @@ function App() {
       <div className='w-full block'>
           <Header />
           <main>
-            {/* <Outlet /> */}
+            <Outlet /> 
           </main>
           <Footer />
       </div>

@@ -4,18 +4,20 @@ import config from '../config/config';
 
 // responsible for authenticating users 
 
-export class AuthService{
+export class AppwriteAuthService{
     client = new Client();
     account;
 
     constructor() {
         // console.log('pid', typeof config.appwriteUrl);
+        // console.log('account before init: ' , this.account);
+        
         this.client
         .setEndpoint(config.appwriteUrl)
-        .setEndpoint(config.appwriteProjectId);
+        .setProject(config.appwriteProjectId);
         
         this.account = new Account(this.client);       
-        console.log('constructor::Client', this.account);
+        // console.log('constructor::account', this.account);
         
     }
 
@@ -44,10 +46,12 @@ export class AuthService{
 
     async getCurrentUser() {
         try {
-            console.log('before getting user', this.account)
-            return await this.account.get();
+            // console.log('before getting user', this.account)
+            const userData = await this.account.get();
+            return userData;
         } catch (error) {
             console.log('Appwrite error:: getCurrentUser: ', error);
+            // throw error;
         }
 
         // in case there is any error getting the user data
@@ -71,6 +75,6 @@ export class AuthService{
     }
 }
 
-const authService = new AuthService();
+const appwriteAuthService = new AppwriteAuthService();
 
-export default authService;
+export default appwriteAuthService;

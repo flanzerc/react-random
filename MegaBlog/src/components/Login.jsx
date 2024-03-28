@@ -3,7 +3,8 @@ import {Link, useNavigate} from 'react-router-dom'
 import {login as storeLogin} from '../store/authSlice'
 import {Button, Input, Logo} from '../components/index'
 import { useDispatch } from 'react-redux'
-import authService from '../appwrite/authService'
+// import authService from '../appwrite/authService'
+import appwriteAuthService from '../appwrite/appwriteAuthService'
 import {useForm} from 'react-hook-form'
 
 
@@ -13,13 +14,16 @@ export default function Login() {
     const {register, handleSubmit} = useForm()
     const [error, setError] = useState("")
 
+    // appwriteAuthService should be used as abstract
+    // something like authService which inherits the auth features
+
     const login = async(data) => {
         setError("")
         try {
-            const session = await authService.login(data)
+            const session = await appwriteAuthService.login(data)
             if(session) {
                 // session exists, get the user data
-                const userData = await authService.getCurrentUser()
+                const userData = await appwriteAuthService.getCurrentUser()
                 if(userData) {
                     dispatch(storeLogin(userData))
                     // redirect the user after successful login

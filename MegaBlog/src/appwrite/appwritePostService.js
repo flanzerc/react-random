@@ -10,13 +10,15 @@ export class AppwritePostService{
     constructor() {
         this.client
             .setEndpoint(config.appwriteUrl)
-            .setEndpoint(config.appwriteProjectId)   
+            .setProject(config.appwriteProjectId)   
         
         this.databases = new Databases(this.client);
         this.storage = new Storage(this.client);
     }
 
     async createPost({title, slug, content, featuredImage, status, userId}) {
+        console.log('postService:userId', userId)
+        console.log('postService:title', title)
         try {
             return await this.databases.createDocument(
                 config.appwriteDatabaseId, 
@@ -101,12 +103,12 @@ export class AppwritePostService{
 
 
     // image handling ..
-    async uploadImage(slug, file) {
+    async uploadImage(file) {
         try {
-            await this.storage.createFile(
+            return await this.storage.createFile(
                 config.appwriteBucketId,
                 ID.unique(),
-                document.getElementById('file_uploader').files[0],
+                file,
             )      
         } catch (error) {
             console.log("AppwriteConfig:: uploadImage: error ", error);
