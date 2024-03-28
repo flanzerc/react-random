@@ -39,9 +39,9 @@ export default function PostForm({ post }) {
 
       } else {
         const imageFile = await appwritePostService.uploadImage(data.image[0])
-        console.log('postForm:after img upload', imageFile)
-        console.log('postForm:userData', userData)
-        console.log('postForm:data', data)
+        // console.log('postForm:after img upload', imageFile)
+        // console.log('postForm:userData', userData)
+        // console.log('postForm:data', data)
 
         if(imageFile) {
           const fileId = imageFile.$id;

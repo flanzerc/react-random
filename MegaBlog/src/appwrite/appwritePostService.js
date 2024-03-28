@@ -17,8 +17,8 @@ export class AppwritePostService{
     }
 
     async createPost({title, slug, content, featuredImage, status, userId}) {
-        console.log('postService:userId', userId)
-        console.log('postService:title', title)
+        // console.log('postService:userId', userId)
+        // console.log('postService:title', title)
         try {
             return await this.databases.createDocument(
                 config.appwriteDatabaseId, 
